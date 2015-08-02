@@ -3,7 +3,7 @@
 #include <Bounce.h>
 
 #define BUTTON 2                                       // создаем объект класса Bounce. Указываем пин, к которому подключена кнопка.
-Bounce bouncer = Bounce(BUTTON,5);                     // время дребезга контактов в мс
+Bounce bouncer = Bounce(BUTTON,10);                     // время дребезга контактов в мс
 
 int relay = 4;                                         // пин подключения реле
 int relayValue = LOW;                                  // состояние реле при включении (выключено)
