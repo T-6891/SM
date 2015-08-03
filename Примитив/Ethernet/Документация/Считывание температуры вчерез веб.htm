@@ -1,0 +1,1481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head profile="http://gmpg.org/xfn/11">
+
+<title>Arduino Tutorials – Chapter 16 – Ethernet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/style.css" media="screen">
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://tronixstuff.com/feed/">
+    <link rel="pingback" href="http://tronixstuff.com/xmlrpc.php">
+       
+    <!--[if IE 6]>
+    <script type="text/javascript" src="//tronixstuff.com/wp-content/themes/gazette/includes/js/suckerfish.js"></script>
+    <![endif]-->
+            
+<!-- This site is optimized with the Yoast SEO plugin v2.3.2 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Learn how to use Ethernet shields with Arduino including various applications in our easy to understand Arduino tutorial.">
+<link rel="canonical" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arduino Tutorials – Chapter 16 – Ethernet">
+<meta property="og:description" content="Learn how to use Ethernet shields with Arduino including various applications in our easy to understand Arduino tutorial.">
+<meta property="og:url" content="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/">
+<meta property="og:site_name" content="tronixstuff">
+<meta property="article:tag" content="arduino">
+<meta property="article:tag" content="control">
+<meta property="article:tag" content="data">
+<meta property="article:tag" content="DHT22">
+<meta property="article:tag" content="ethernet">
+<meta property="article:tag" content="etherten">
+<meta property="article:tag" content="freetronics">
+<meta property="article:tag" content="lesson">
+<meta property="article:tag" content="remote">
+<meta property="article:tag" content="shield">
+<meta property="article:tag" content="tronixstuff">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="weather">
+<meta property="article:tag" content="website">
+<meta property="article:section" content="arduino">
+<meta property="article:published_time" content="2013-12-06T10:18:23+00:00">
+<meta property="article:modified_time" content="2014-03-30T14:52:08+00:00">
+<meta property="og:updated_time" content="2014-03-30T14:52:08+00:00">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/ArduinoEthernetShield_R3.jpg">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/EtherTen.jpg">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/Wiznet_W5100.jpg">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/Arduino-webserver-example-sketch.jpg">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/WAN-IP-address-router.jpg">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/Arduino-router-port-forwarding.jpg">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/Arduino-webserver-example-cellular.jpg">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/arduino-ethernet-freetronics-etherten-dht22-humid.jpg">
+<meta property="og:image" content="http://tronixstuff.com/wp-content/uploads/2013/12/arduino-ethernet-freetronics-etherten-dht22-humid-cellular.jpg">
+<meta property="og:image" content="http://i0.wp.com/tronixstuff.com/wp-content/uploads/2013/10/tronixstuff_article_divider.jpg?resize=400%2C93">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Learn how to use Ethernet shields with Arduino including various applications in our easy to understand Arduino tutorial.">
+<meta name="twitter:title" content="Arduino Tutorials – Chapter 16 – Ethernet">
+<meta name="twitter:site" content="@tronixstuff">
+<meta name="twitter:domain" content="tronixstuff">
+<meta name="twitter:image:src" content="http://tronixstuff.com/wp-content/uploads/2013/12/ArduinoEthernetShield_R3.jpg">
+<meta name="twitter:creator" content="@tronixstuff">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="tronixstuff » Arduino Tutorials – Chapter 16 – Ethernet Comments Feed" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/feed/">
+		<script src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/tronixstuff.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.3"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/wp-emoji-release.js"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="crayon-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/crayon.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-arduino-ide-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/arduino-ide.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-monaco-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/monaco.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="ts_fab_css-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/ts-fab.css" type="text/css" media="all">
+<link rel="stylesheet" id="social-widget-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/social_widget.css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/jetpack.css" type="text/css" media="all">
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.4 - Universal disabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-42717094-1']);
+	_gaq.push(['_gat._forceSSL']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/jquery.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/jquery-migrate.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.7.1","is_admin":"0","ajaxurl":"http:\/\/tronixstuff.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/crayon.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/ts-fab.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/scripts_002.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/superfish.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://tronixstuff.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://tronixstuff.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.2.3">
+<link rel="shortlink" href="http://wp.me/p3LK05-3Jm">
+
+<link rel="dns-prefetch" href="http://jetpack.wordpress.com/">
+<link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://s1.wp.com/">
+<link rel="dns-prefetch" href="http://s2.wp.com/">
+<link rel="dns-prefetch" href="http://public-api.wordpress.com/">
+<link rel="dns-prefetch" href="http://0.gravatar.com/">
+<link rel="dns-prefetch" href="http://1.gravatar.com/">
+<link rel="dns-prefetch" href="http://2.gravatar.com/">
+<link rel="dns-prefetch" href="http://widgets.wp.com/">
+<link rel="dns-prefetch" href="http://i0.wp.com/">
+<link rel="dns-prefetch" href="http://i1.wp.com/">
+<link rel="dns-prefetch" href="http://i2.wp.com/">
+
+<!-- Alt Stylesheet -->
+<link href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/default.css" rel="stylesheet" type="text/css">
+
+<!-- Custom Favicon -->
+<link rel="shortcut icon" href="http://tronixstuff.com/wp-content/uploads/2010/03/faviconimage.png">
+
+<!-- Woo Shortcodes CSS -->
+<link href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/shortcodes.css" rel="stylesheet" type="text/css">
+
+<!-- Custom Stylesheet -->
+<link href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/custom.css" rel="stylesheet" type="text/css">
+
+<!-- Theme version -->
+<meta name="generator" content="Gazette Edition 2.9.17">
+<meta name="generator" content="WooFramework 6.1.2">
+<style type="text/css">
+
+.wooslider .slider-container,.slider-container .slide  { height: 292px!important } 
+.wooslider .slider-container .slide-content { top: 292px } }
+</style>
+
+	
+
+
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/services.css"><script>try {  for(var lastpass_iter=0; lastpass_iter < document.forms.length; lastpass_iter++){    var lastpass_f = document.forms[lastpass_iter];    if(typeof(lastpass_f.lpsubmitorig)=="undefined"){      if (typeof(lastpass_f.submit) == "function") {        lastpass_f.lpsubmitorig = lastpass_f.submit;        lastpass_f.submit = function(){          var form = this;          try {            if (document.documentElement && 'createEvent' in document)            {              var forms = document.getElementsByTagName('form');              for (var i=0 ; i<forms.length ; ++i)                if (forms[i]==form)                {                  var element = document.createElement('lpformsubmitdataelement');                  element.setAttribute('formnum',i);                  element.setAttribute('from','submithook');                  document.documentElement.appendChild(element);                  var evt = document.createEvent('Events');                  evt.initEvent('lpformsubmit',true,false);                  element.dispatchEvent(evt);                  break;                }            }          } catch (e) {}          try {            form.lpsubmitorig();          } catch (e) {}        }      }    }  }} catch (e) {}</script></head>
+
+<body class="single single-post postid-14344 single-format-standard gecko alt-style-default"><script type="text/javascript">
+//<![CDATA[
+try{(function(a){var b="http://",c="tronixstuff.com",d="/cdn-cgi/cl/",e="img.gif",f=new a;f.src=[b,c,d,e].join("")})(Image)}catch(e){}
+//]]>
+</script>
+
+<!-- Set video category -->
+
+<div id="page">
+
+<div id="nav"> <!-- START TOP NAVIGATION BAR -->
+	
+		<div id="nav-left">
+					</div><!--/nav-left -->
+
+				
+	</div><!--/nav-->
+	
+	<div class="fix"></div>
+	
+	<div id="header"><!-- START LOGO LEVEL WITH RSS FEED -->
+		
+		<div id="logo">
+	       
+		            <a href="http://tronixstuff.com/" title="fun and learning with electronics">
+                <img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/logo1.png" alt="tronixstuff">
+            </a>
+         
+        
+                    <span class="site-title"><a href="http://tronixstuff.com/">tronixstuff</a></span>
+                    <span class="site-description">fun and learning with electronics</span>
+	      	
+		</div><!-- /#logo -->
+		
+		<!-- Top Ad Starts -->
+			<div id="topbanner">
+
+	<script type="text/javascript"><!--
+google_ad_client = "ca-pub-7811816796650654";
+/* tronixstuff.com header */
+google_ad_slot = "7075251665";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/show_ads.js">
+</script>	
+		
+
+</div>		<!-- Top Ad Ends -->
+		
+	</div><!--/header -->
+    
+    	
+	
+	<div id="suckerfish"><!-- START CATEGORY NAVIGATION (SUCKERFISH CSS) -->
+			<ul id="nav2" class="menu sf-js-enabled sf-shadow"><li id="menu-item-10875" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-10875"><a href="http://tronixstuff.com/">Home</a></li>
+<li id="menu-item-15317" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15317"><a href="http://tronixlabs.com/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://tronixlabs.com', 'Tronixlabs']);">Tronixlabs</a></li>
+<li id="menu-item-10870" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-10870"><a class="sf-with-ul" href="http://tronixstuff.com/tutorials/">Arduino Tutorials<span class="sf-sub-indicator"> »</span></a>
+<ul style="display: none; visibility: hidden;" class="sub-menu">
+	<li id="menu-item-14338" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14338"><a href="http://tronixstuff.com/arduino-yun-tutorials/">Arduino Yún Tutorials</a></li>
+</ul>
+</li>
+<li id="menu-item-10869" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10869"><a href="http://tronixstuff.com/kitreviews/">Kit Reviews</a></li>
+<li id="menu-item-10867" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10867"><a href="http://tronixstuff.com/projects/">Projects</a></li>
+<li id="menu-item-10868" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10868"><a href="http://tronixstuff.com/partreviews/">Reviews</a></li>
+<li id="menu-item-10866" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10866"><a href="http://tronixstuff.com/about-2/">About</a></li>
+<li id="menu-item-10879" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10879"><a href="http://tronixstuff.com/contact-us/">Contact Us</a></li>
+</ul>		
+	</div><!--/nav2-->
+	
+    <div id="columns"><!-- START MAIN CONTENT COLUMNS -->
+		<div class="col1">
+
+			
+					
+
+				<div id="archivebox">
+					
+						<h3><em>Categorized |</em> <a href="http://tronixstuff.com/category/arduino/" rel="category tag">arduino</a>, <a href="http://tronixstuff.com/category/dev-09026/" rel="category tag">DEV-09026</a>, <a href="http://tronixstuff.com/category/dev-11230/" rel="category tag">DEV-11230</a>, <a href="http://tronixstuff.com/category/dht22/" rel="category tag">DHT22</a>, <a href="http://tronixstuff.com/category/ethernet/" rel="category tag">ethernet</a>, <a href="http://tronixstuff.com/category/internet/" rel="category tag">internet</a>, <a href="http://tronixstuff.com/category/iot/" rel="category tag">iot</a>, <a href="http://tronixstuff.com/category/shield/" rel="category tag">shield</a>, <a href="http://tronixstuff.com/category/tronixstuff/" rel="category tag">tronixstuff</a>, <a href="http://tronixstuff.com/category/tutorial/" rel="category tag">tutorial</a></h3>     
+				
+				</div><!--/archivebox-->			
+
+				<div class="post-alt blog" id="post-14344">
+				
+					<h2><a title="Permanent Link to Arduino Tutorials – Chapter 16 – Ethernet" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/" rel="bookmark">Arduino Tutorials – Chapter 16 – Ethernet</a></h2>
+					<p class="post_date">Posted on 06 December 2013. <span class="singletags">Tags: <a href="http://tronixstuff.com/tag/arduino/" rel="tag">arduino</a>, <a href="http://tronixstuff.com/tag/control/" rel="tag">control</a>, <a href="http://tronixstuff.com/tag/data/" rel="tag">data</a>, <a href="http://tronixstuff.com/tag/dht22/" rel="tag">DHT22</a>, <a href="http://tronixstuff.com/tag/ethernet/" rel="tag">ethernet</a>, <a href="http://tronixstuff.com/tag/etherten/" rel="tag">etherten</a>, <a href="http://tronixstuff.com/tag/freetronics/" rel="tag">freetronics</a>, <a href="http://tronixstuff.com/tag/lesson/" rel="tag">lesson</a>, <a href="http://tronixstuff.com/tag/remote/" rel="tag">remote</a>, <a href="http://tronixstuff.com/tag/shield/" rel="tag">shield</a>, <a href="http://tronixstuff.com/tag/tronixstuff/" rel="tag">tronixstuff</a>, <a href="http://tronixstuff.com/tag/tutorial/" rel="tag">tutorial</a>, <a href="http://tronixstuff.com/tag/weather/" rel="tag">weather</a>, <a href="http://tronixstuff.com/tag/website/" rel="tag">website</a></span></p>
+                    
+                    					<div class="entry">
+												<p>Learn how to connect your Arduino to the outside world via Ethernet</p>
+<p>This is chapter sixteen of our huge&nbsp;<a href="http://tronixstuff.com/tutorials" target="_blank">Arduino tutorial series</a>.&nbsp;<strong>Updated 06/12/2013</strong></p>
+<p>In this chapter we will introduce and examine the use 
+of&nbsp;Ethernet&nbsp;networking with Arduino over local networks and 
+the greater Internet. It will be assumed that you have a basic 
+understanding of computer networking, such as the knowledge of how to 
+connect computers to a hub/router with RJ45 cables, what an IP and MAC 
+address is, and so on. Furthermore,&nbsp;<a href="http://en.wikipedia.org/wiki/Ethernet" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://en.wikipedia.org/wiki/Ethernet', 'here is a good quick rundown']);" target="_blank">here is a good quick rundown</a>&nbsp;about&nbsp;Ethernet.</p>
+<p><em><strong>Getting Started</strong></em></p>
+<p>You will need an Arduino Uno or compatible board with an Ethernet 
+shield that uses the W5100 Ethernet controller IC (pretty much all of 
+them):</p>
+<p style="text-align: center;"><a href="http://arduino.cc/en/Main/ArduinoEthernetShield" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://arduino.cc/en/Main/ArduinoEthernetShield', '']);"><img class="aligncenter size-full wp-image-14407" alt="Arduino Ethernet shield" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/ArduinoEthernetShield_R3.jpg" height="356" width="500"></a></p>
+<p style="text-align: center;">…or consider using a&nbsp;<a href="http://www.freetronics.com/collections/ethernet/products/etherten" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://www.freetronics.com/collections/ethernet/products/etherten', 'Freetronics EtherTen']);" target="_blank">Freetronics EtherTen</a>&nbsp;– as it has everything all on the one board, plus some extras:</p>
+<p style="text-align: center;"><a href="http://www.freetronics.com/collections/arduino/products/etherten" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://www.freetronics.com/collections/arduino/products/etherten', '']);"><img class="aligncenter size-full wp-image-14360" alt="Freetronics EtherTen" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/EtherTen.jpg" height="355" width="480"></a></p>
+<p style="text-align: left;">Furthermore you will need to power the 
+board via the external DC socket – the W5100 IC uses more current than 
+the USB power can supply. A 9V 1A plug pack/wall wart will suffice. 
+Finally it does get hot – so be careful not to touch the W5100 after 
+extended use. In case you’re not sure – this is the W5100 IC:</p>
+<p style="text-align: center;"><a href="http://i0.wp.com/tronixstuff.com/wp-content/uploads/2013/12/Wiznet_W5100.jpg"><img class="aligncenter size-full wp-image-14361" alt="Wiznet W5100" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/Wiznet_W5100.jpg" height="240" width="240"></a></p>
+<p style="text-align: left;">Once you have your Ethernet-enabled 
+Arduino, and have the external power connected – it’s a good idea to 
+check it all works.&nbsp;Open the Arduino IDE and select<em>File &gt; Examples &gt; Ethernet &gt; Webserver</em>.
+ This loads a simple sketch which will display data gathered from the 
+analogue inputs on a web browser. However don’t upload it yet, it needs a
+ slight modification.</p>
+<p>You need to specify the&nbsp;<a href="http://en.wikipedia.org/wiki/IP_address" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://en.wikipedia.org/wiki/IP_address', 'IP address']);" target="_blank">IP address</a>&nbsp;of the Ethernet shield – which is done inside the sketch. This is simple, go to the line:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fdd0258550815" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">IPAddress ip(192,168,1, 177);</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fdd0258550815-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fdd0258550815-1"><span class="crayon-i">IPAddress</span><span class="crayon-h"> </span><span class="crayon-v">ip</span><span class="crayon-sy">(</span><span class="crayon-cn">192</span><span class="crayon-sy">,</span><span class="crayon-cn">168</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">177</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>And alter it to match your own setup. For example, in my home the 
+router’s IP address is 10.1.1.1, the printer is 10.1.1.50 and all PCs 
+are below …50. So I will set my shield IP to 10.1.1.77 by altering the 
+line to:</p>
+<div id="crayon-529ee078398f9288475273" data-settings=" minimize scroll-mouseover">
+<!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fddd956104172" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">IPAddress ip(10,1,1,77);</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fddd956104172-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fddd956104172-1"><span class="crayon-i">IPAddress</span><span class="crayon-h"> </span><span class="crayon-v">ip</span><span class="crayon-sy">(</span><span class="crayon-cn">10</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-cn">77</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<br>
+You also have the opportunity to change your&nbsp;<a href="http://en.wikipedia.org/wiki/MAC_address" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://en.wikipedia.org/wiki/MAC_address', 'MAC address']);" target="_blank">MAC address</a>.
+ Each piece of networking equipment has a unique serial number to 
+identify itself over a network, and this is normall hard-programmed into
+ the equipments’ firmware. However with Arduino we can define the MAC 
+address ourselves.<p></p>
+<p>If you are running more than one Ethernet shield on your network, 
+ensure they have different MAC addresses by altering the hexadecimal 
+values in the line:</p>
+</div>
+<div id="crayon-529ee078398ea719877420" data-settings=" minimize scroll-mouseover">
+<!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fde2107177198" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fde2107177198-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fde2107177198-1"><span class="crayon-r">byte</span><span class="crayon-h"> </span><span class="crayon-v">mac</span><span class="crayon-sy">[</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-cn">0xDE</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xAD</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xBE</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xEF</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xFE</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xED</span><span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<br>
+However if you only have one shield just leave it be. There may be the 
+very, very, statistically rare chance of having a MAC address the same 
+as your existing hardware, so that would be another time to change it.<p></p>
+<p>Once you have made your alterations, save and upload the sketch. Now 
+open a web browser and navigate to the IP address you entered in the 
+sketch, and you should be presented with something similar to the 
+following:</p>
+<p style="text-align: center;">&nbsp;<a href="http://i2.wp.com/tronixstuff.com/wp-content/uploads/2013/12/Arduino-webserver-example-sketch.jpg"><img class="aligncenter size-full wp-image-14409" alt="Arduino webserver example sketch" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/Arduino-webserver-example-sketch.jpg" height="228" width="408"></a></p>
+<p>What’s happening? The Arduino has been programmed to offer a simple 
+web page with the values measured by the analogue inputs. You can 
+refresh the browser to get updated values.</p>
+<p>At this point – please note that the Ethernet shields use digital 
+pins 10~13, so you can’t use those for anything else. Some Arduino 
+Ethernet shields may also have a microSD card socket, which also uses 
+another digital pin – so check with the documentation to find out which 
+one.</p>
+<p>Nevertheless, now&nbsp;that we can see the&nbsp;Ethernet&nbsp;shield 
+is working we can move on to something more useful. Let’s dissect the 
+previous example in a simple way, and see how we can distribute and 
+display more interesting data over the network. For reference, all of 
+the&nbsp;Ethernet-related functions are handled by the&nbsp;<i>Ethernet</i>&nbsp;Arduino&nbsp;library. If you examine the previous sketch we just used, the section that will be of interest is:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fde8430641376" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft"> for (int analogChannel = 0; analogChannel &lt; 6; analogChannel++) 
+          {
+            int sensorReading = analogRead(analogChannel);
+            client.print("analog input ");
+            client.print(analogChannel);
+            client.print(" is ");
+            client.print(sensorReading);
+            client.println("&lt;br /&gt;");       
+          }
+          client.println("&lt;/html&gt;");</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fde8430641376-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fde8430641376-2">2</div><div class="crayon-num" data-line="crayon-55be5c479fde8430641376-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fde8430641376-4">4</div><div class="crayon-num" data-line="crayon-55be5c479fde8430641376-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fde8430641376-6">6</div><div class="crayon-num" data-line="crayon-55be5c479fde8430641376-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fde8430641376-8">8</div><div class="crayon-num" data-line="crayon-55be5c479fde8430641376-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fde8430641376-10">10</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fde8430641376-1"><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-r">int</span><span class="crayon-h"> </span><span class="crayon-v">analogChannel</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">analogChannel</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-h"> </span><span class="crayon-cn">6</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">analogChannel</span><span class="crayon-o">++</span><span class="crayon-sy">)</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fde8430641376-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-55be5c479fde8430641376-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-r">int</span><span class="crayon-h"> </span><span class="crayon-v">sensorReading</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-st">analogRead</span><span class="crayon-sy">(</span><span class="crayon-v">analogChannel</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fde8430641376-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">"analog input "</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fde8430641376-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">analogChannel</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fde8430641376-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">" is "</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fde8430641376-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">sensorReading</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fde8430641376-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"&lt;br /&gt;"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line" id="crayon-55be5c479fde8430641376-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fde8430641376-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"&lt;/html&gt;"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0025 seconds] -->
+<p>Hopefully this section of the sketch should be familiar – remember how we have used&nbsp;<em>serial.print();</em>&nbsp;in
+ the past when sending data to the serial monitor box? Well now we can 
+do the same thing, but sending data from our&nbsp;Ethernet&nbsp;shield 
+back to a web browser – on other words, a very basic type of web page.</p>
+<p>However there is something you may or may not want to &nbsp;learn in 
+order to format the output in a readable format – HTML code. I am not a 
+website developer (!) so will not delve into HTML too much.</p>
+<p>However if you wish to serve up nicely formatted&nbsp;web pages&nbsp;with your Arduino and so on,&nbsp;<a href="http://en.wikipedia.org/wiki/HTML" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://en.wikipedia.org/wiki/HTML', 'here']);" target="_blank">here</a>&nbsp;would be a good start. In the interests of simplicity, the following two functions will be the most useful:</p>
+<div id="crayon-529ee07839911074988149" data-settings=" minimize scroll-mouseover">
+<!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fded730788944" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">client.print(" is ");</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fded730788944-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fded730788944-1"><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">" is "</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<br>
+<em>Client.print ();&nbsp;</em>allows us to send text or data back to the web page. It works in the same way as&nbsp;<em>serial.print()</em>, so nothing new there. You can also specify the&nbsp;<a href="http://arduino.cc/en/Reference/ClientPrintln" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://arduino.cc/en/Reference/ClientPrintln', 'data type']);" target="_blank">data type</a>&nbsp;in the same way as with serial.print(). Naturally you can also use it to send data back as well. The other useful line is:<p></p>
+<div id="crayon-529ee07839918534976548" data-settings=" minimize scroll-mouseover">
+<!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fdf2147044329" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">client.println("&lt;br /&gt;");</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fdf2147044329-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fdf2147044329-1"><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"&lt;br /&gt;"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<br>
+which sends the HTML code back to the web browser telling it to start a 
+new line. The part that actually causes the carriage return/new line is 
+the &lt;br /&gt; which is an HTML code (or “tag”) for a new line. So if 
+you are creating more elaborate web page displays, you can just insert 
+other HTML tags in the&nbsp;<em>client.print();&nbsp;</em>statement. If you want to learn more about HTML commands, <a href="http://www.w3schools.com/html/" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://www.w3schools.com/html/', 'here’s a good tutorial site']);" target="_blank">here’s a good tutorial site</a>.
+ Finally – note that the sketch will only send the data when it has been
+ requested, that is when it has received a request from the web browser.<p></p>
+<p><b><i>Accessing your Arduino over the Internet</i></b></p>
+<p>So far – so good. But what if you want to access your Arduino from outside the local network?</p>
+<p>You will need a&nbsp;<a href="http://en.wikipedia.org/wiki/Static_IP_address#Static_IP" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://en.wikipedia.org/wiki/Static_IP_address#Static_IP', 'static']);" target="_blank">static</a>&nbsp;IP
+ address – that is, the IP address your internet service provider 
+assigns to your connection needs to stay the same. If you don’t have a 
+static IP, as long as you leave your modem/router permanently swiched on
+ your IP&nbsp;<em>shouldn’t</em>&nbsp;change. However that isn’t an optimal solution.</p>
+<blockquote><p>If your ISP cannot offer you a static IP at all, you can 
+still move forward with the project by using an organisation that offers
+ a Dynamic DNS. These organisations offer you your own static IP host 
+name (e.g. mojo.monkeynuts.com) instead of a number, keep track of your 
+changing IP address and linking it to the new host name. From what I can
+ gather, your modem needs to support (have an in-built client for…) 
+these DDNS services. As an example, two companies are&nbsp;<a href="http://www.no-ip.com/" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://www.no-ip.com/', 'No-IP']);" target="_blank">No-IP</a>&nbsp;and<a href="http://www.dyndns.com/" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://www.dyndns.com/', 'DynDNS.com']);" target="_blank">DynDNS.com</a>. Please note that I haven’t used those two, they are just offered as examples.</p></blockquote>
+<p>Now, to find your IP address… usually this can be found by logging 
+into your router’s administration page – it is usually 192.168.0.1 but 
+could be different. <em>Check with your supplier or ISP</em> if they 
+supplied the hardware.&nbsp;For this example, if I enter 10.1.1.1 in a 
+web browser, and after entering my modem administration password, the 
+following screen is presented:</p>
+<p style="text-align: center;"><em><strong><a href="http://i1.wp.com/tronixstuff.com/wp-content/uploads/2013/12/WAN-IP-address-router.jpg"><img class="aligncenter size-full wp-image-14420" alt="WAN IP address router" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/WAN-IP-address-router.jpg" height="269" width="500"></a></strong></em></p>
+<p style="text-align: left;">What you are looking for is your WAN IP 
+address, as you can see in the image above. To keep the pranksters away,
+ I have blacked out some of my address.</p>
+<p style="text-align: left;">The next thing to do is turn on&nbsp;<em>port-forwarding</em>.
+ This tells the router where to redirect incoming requests from the 
+outside world. When the modem receives such a request, we want to send 
+that request to the port number of our&nbsp;Ethernet&nbsp;shield. Using 
+the:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fdf9801042196" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">EthernetServer server(125);</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fdf9801042196-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fdf9801042196-1"><span class="crayon-i">EthernetServer</span><span class="crayon-h"> </span><span class="crayon-v">server</span><span class="crayon-sy">(</span><span class="crayon-cn">125</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>function in our sketch has set the port number to 125. Each modem’s 
+configuration screen will look different, but as an example here is one:</p>
+<p style="text-align: center;"><a href="http://i1.wp.com/tronixstuff.com/wp-content/uploads/2013/12/Arduino-router-port-forwarding.jpg"><img class="aligncenter size-full wp-image-14432" alt="Arduino router port forwarding" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/Arduino-router-port-forwarding.jpg" height="256" width="500"></a></p>
+<p style="text-align: left;">So you can see from the line number one in 
+the image above, the inbound port numbers have been set to 125, and the 
+IP address of the&nbsp;Ethernet&nbsp;shield has been set to 10.1.1.77 – 
+the same as in the sketch.</p>
+<p style="text-align: left;">After saving the settings, we’re all set. 
+The external address of my&nbsp;Ethernet&nbsp;shield will be the 
+WAN:125, so to access the Arduino I will type my WAN address with :125 
+at the end into the browser of the remote web device, which will contact
+ the lonely&nbsp;Ethernet&nbsp;hardware back home.</p>
+<p style="text-align: left;">Furthermore, you may need to alter your modem’s&nbsp;<em>firewall&nbsp;</em>settings,
+ to allow the port 125 to be “open” to incoming requests. Please check 
+your modem documentation for more information on how to do this.</p>
+<p>Now from basically any&nbsp;Internet&nbsp;connected device in the 
+free world, I can enter my WAN and port number into the URL field and 
+receive the results. For example, from a phone when it is connected to 
+the&nbsp;Internet&nbsp;via LTE mobile data:</p>
+<p style="text-align: center;"><em><strong><a href="http://i2.wp.com/tronixstuff.com/wp-content/uploads/2013/12/Arduino-webserver-example-cellular.jpg"><img class="aligncenter size-full wp-image-14433" alt="Arduino webserver example cellular" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/Arduino-webserver-example-cellular.jpg" height="261" width="500"></a></strong></em></p>
+<p style="text-align: left;"><span style="text-align: left;">So at this 
+stage you can now display data on a simple web page created by your 
+Arduino and access it from anywhere with unrestricted Internet access. 
+With your previous Arduino knowledge (well, this is chapter sixteen) you
+ can now use data from sensors or other parts of a sketch and display it
+ for retrieval.</span></p>
+<p><em><strong>Displaying sensor data on a web page</strong></em></p>
+<p>As an example of displaying sensor data on a web page, let’s use an inexpensive and popular temperature and humidity sensor – <a href="http://www.freetronics.com/collections/modules/products/humidity-and-temperature-sensor-module" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://www.freetronics.com/collections/modules/products/humidity-and-temperature-sensor-module', 'the DHT22']);" target="_blank">the DHT22</a>. You will need to install the DHT22 Arduino library which can be <a href="http://www.freetronics.com/pages/humid-humidity-temperature-sensor-module-quickstart-guide" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://www.freetronics.com/pages/humid-humidity-temperature-sensor-module-quickstart-guide', 'found on this page']);" target="_blank">found on this page</a>.
+ If this is your first time with the DHT22, experiment with the example 
+sketch that’s included with the library so you understand how it works.</p>
+<p>Connect the DHT22 with the data pin to Arduino D2, Vin to the 5V pin and GND to … GND:</p>
+<p style="text-align: center;"><img class="aligncenter size-full wp-image-14438" alt="arduino ethernet freetronics etherten dht22 humid" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/arduino-ethernet-freetronics-etherten-dht22-humid.jpg" height="287" width="500"></p>
+<p style="text-align: left;">Now for our sketch – to display the 
+temperature and humidity on a web page.&nbsp;If you’re not up on HTML 
+you can use online services <a href="http://www.quackit.com/html/online-html-editor/" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://www.quackit.com/html/online-html-editor/', 'such as this']);" target="_blank">such as this</a> to generate the code, which you can then modify to use in the sketch.</p>
+<p style="text-align: left;">In the example below, the temperature and humidity data from the DHT22 is served in a simple web page:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fe01915875715" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important; margin-top: -18px; display: none;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">#include
+ &lt;SPI.h&gt;
+#include &lt;Ethernet.h&gt;
+
+// for DHT22 sensor
+#include "DHT.h"
+#define DHTPIN 2
+#define DHTTYPE DHT22
+
+// Enter a MAC address and IP address for your controller below.
+// The IP address will be dependent on your local network:
+byte mac[] = {   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+IPAddress ip(10,1,1,77);
+
+// Initialize the Ethernet server library
+// with the IP address and port you want to use 
+// (port 80 is default for HTTP):
+EthernetServer server(125);
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() 
+{
+  dht.begin();
+ // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+   while (!Serial) {
+    ; // wait for serial port to connect. Needed for Leonardo only
+  }
+  // start the Ethernet connection and the server:
+  Ethernet.begin(mac, ip);
+  server.begin();
+  Serial.print("server is at ");
+  Serial.println(Ethernet.localIP());
+}
+
+void loop() 
+{
+  // listen for incoming clients
+  EthernetClient client = server.available();
+  if (client) {
+    Serial.println("new client");
+    // an http request ends with a blank line
+    boolean currentLineIsBlank = true;
+    while (client.connected()) {
+      if (client.available()) {
+        char c = client.read();
+        Serial.write(c);
+        // if you've gotten to the end of the line (received a newline
+        // character) and the line is blank, the http request has ended,
+        // so you can send a reply
+        if (c == '\n' &amp;&amp; currentLineIsBlank) 
+        {
+          // send a standard http response header
+          client.println("HTTP/1.1 200 OK");
+          client.println("Content-Type: text/html");
+          client.println("Connection: close");  // the connection will 
+be closed after completion of the response
+	  client.println("Refresh: 30");  // refresh the page automatically 
+every 30 sec
+          client.println();
+          client.println("&lt;!DOCTYPE HTML&gt;");
+          client.println("&lt;html&gt;");
+
+          // get data from DHT22 sensor
+          float h = dht.readHumidity();
+          float t = dht.readTemperature();
+          Serial.println(t);
+          Serial.println(h);
+
+          // from here we can enter our own HTML code to create the web 
+page
+          client.print("&lt;head&gt;&lt;title&gt;Office 
+Weather&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Office 
+Temperature&lt;/h1&gt;&lt;p&gt;Temperature - ");
+          client.print(t);
+          client.print(" degrees Celsius&lt;/p&gt;");
+          client.print("&lt;p&gt;Humidity - ");
+          client.print(h);
+          client.print(" percent&lt;/p&gt;");
+          client.print("&lt;p&gt;&lt;em&gt;Page refreshes every 30 
+seconds.&lt;/em&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;");
+          break;
+        }
+        if (c == '\n') {
+          // you're starting a new line
+          currentLineIsBlank = true;
+        } 
+        else if (c != '\r') {
+          // you've gotten a character on the current line
+          currentLineIsBlank = false;
+        }
+      }
+    }
+    // give the web browser time to receive the data
+    delay(1);
+    // close the connection:
+    client.stop();
+    Serial.println("client disonnected");
+  }
+}</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-2">2</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-4">4</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-6">6</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-8">8</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-10">10</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-12">12</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-14">14</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-16">16</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-18">18</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-20">20</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-22">22</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-24">24</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-26">26</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-28">28</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-30">30</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-32">32</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-33">33</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-34">34</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-35">35</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-36">36</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-37">37</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-38">38</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-39">39</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-40">40</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-41">41</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-42">42</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-43">43</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-44">44</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-45">45</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-46">46</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-47">47</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-48">48</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-49">49</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-50">50</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-51">51</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-52">52</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-53">53</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-54">54</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-55">55</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-56">56</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-57">57</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-58">58</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-59">59</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-60">60</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-61">61</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-62">62</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-63">63</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-64">64</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-65">65</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-66">66</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-67">67</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-68">68</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-69">69</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-70">70</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-71">71</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-72">72</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-73">73</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-74">74</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-75">75</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-76">76</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-77">77</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-78">78</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-79">79</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-80">80</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-81">81</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-82">82</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-83">83</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-84">84</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-85">85</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-86">86</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-87">87</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-88">88</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-89">89</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-90">90</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-91">91</div><div class="crayon-num crayon-striped-num" data-line="crayon-55be5c479fe01915875715-92">92</div><div class="crayon-num" data-line="crayon-55be5c479fe01915875715-93">93</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fe01915875715-1"><span class="crayon-p">#include &lt;SPI.h&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-2"><span class="crayon-p">#include &lt;Ethernet.h&gt;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-4"><span class="crayon-c">// for DHT22 sensor</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-5"><span class="crayon-p">#include "DHT.h"</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-6"><span class="crayon-p">#define DHTPIN 2</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-7"><span class="crayon-p">#define DHTTYPE DHT22</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-8">&nbsp;</div><div class="crayon-line" id="crayon-55be5c479fe01915875715-9"><span class="crayon-c">// Enter a MAC address and IP address for your controller below.</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-10"><span class="crayon-c">// The IP address will be dependent on your local network:</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-11"><span class="crayon-r">byte</span><span class="crayon-h"> </span><span class="crayon-v">mac</span><span class="crayon-sy">[</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-cn">0xDE</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xAD</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xBE</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xEF</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xFE</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0xED</span><span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-12"><span class="crayon-i">IPAddress</span><span class="crayon-h"> </span><span class="crayon-v">ip</span><span class="crayon-sy">(</span><span class="crayon-cn">10</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-cn">77</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-13">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-14"><span class="crayon-c">// Initialize the Ethernet server library</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-15"><span class="crayon-c">// with the IP address and port you want to use </span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-16"><span class="crayon-c">// (port 80 is default for HTTP):</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-17"><span class="crayon-i">EthernetServer</span><span class="crayon-h"> </span><span class="crayon-v">server</span><span class="crayon-sy">(</span><span class="crayon-cn">125</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-18"><span class="crayon-cn">DHT</span><span class="crayon-h"> </span><span class="crayon-v">dht</span><span class="crayon-sy">(</span><span class="crayon-v">DHTPIN</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">DHTTYPE</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-19">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-20"><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-st">setup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-21"><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-22"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">dht</span><span class="crayon-sy">.</span><span class="crayon-v">begin</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-23"><span class="crayon-h"> </span><span class="crayon-c">// Open serial communications and wait for port to open:</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-24"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">Serial</span><span class="crayon-sy">.</span><span class="crayon-v">begin</span><span class="crayon-sy">(</span><span class="crayon-cn">9600</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-25"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-st">while</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-o">!</span><span class="crayon-st">Serial</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-26"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-c">// wait for serial port to connect. Needed for Leonardo only</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-27"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-28"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c">// start the Ethernet connection and the server:</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-29"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">Ethernet</span><span class="crayon-sy">.</span><span class="crayon-v">begin</span><span class="crayon-sy">(</span><span class="crayon-v">mac</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">ip</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-30"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">server</span><span class="crayon-sy">.</span><span class="crayon-v">begin</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-31"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">Serial</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">"server is at "</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-32"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">Serial</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-v">Ethernet</span><span class="crayon-sy">.</span><span class="crayon-v">localIP</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-33"><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-34">&nbsp;</div><div class="crayon-line" id="crayon-55be5c479fe01915875715-35"><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-st">loop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-36"><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-37"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c">// listen for incoming clients</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-38"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">EthernetClient</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">server</span><span class="crayon-sy">.</span><span class="crayon-v">available</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-39"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">client</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-40"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">Serial</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"new client"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-41"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// an http request ends with a blank line</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-42"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-t">boolean</span><span class="crayon-h"> </span><span class="crayon-v">currentLineIsBlank</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k">true</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-43"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">while</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">connected</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-44"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">available</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-45"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-r">char</span><span class="crayon-h"> </span><span class="crayon-v">c</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">read</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-46"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">Serial</span><span class="crayon-sy">.</span><span class="crayon-v">write</span><span class="crayon-sy">(</span><span class="crayon-v">c</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-47"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// if you've gotten to the end of the line (received a newline</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-48"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// character) and the line is blank, the http request has ended,</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-49"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// so you can send a reply</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-50"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">c</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'\n'</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">currentLineIsBlank</span><span class="crayon-sy">)</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-51"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-52"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// send a standard http response header</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-53"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"HTTP/1.1 200 OK"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-54"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"Content-Type: text/html"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-55"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"Connection: close"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c">// the connection will be closed after completion of the response</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-56"><span class="crayon-h">	&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"Refresh: 30"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c">// refresh the page automatically every 30 sec</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-57"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-58"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"&lt;!DOCTYPE HTML&gt;"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-59"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"&lt;html&gt;"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-60">&nbsp;</div><div class="crayon-line" id="crayon-55be5c479fe01915875715-61"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// get data from DHT22 sensor</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-62"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-r">float</span><span class="crayon-h"> </span><span class="crayon-v">h</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">dht</span><span class="crayon-sy">.</span><span class="crayon-v">readHumidity</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-63"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-r">float</span><span class="crayon-h"> </span><span class="crayon-v">t</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">dht</span><span class="crayon-sy">.</span><span class="crayon-v">readTemperature</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-64"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">Serial</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-v">t</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-65"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">Serial</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-v">h</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-66">&nbsp;</div><div class="crayon-line" id="crayon-55be5c479fe01915875715-67"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// from here we can enter our own HTML code to create the web page</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-68"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">"&lt;head&gt;&lt;title&gt;Office Weather&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Office Temperature&lt;/h1&gt;&lt;p&gt;Temperature - "</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-69"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">t</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-70"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">" degrees Celsius&lt;/p&gt;"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-71"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">"&lt;p&gt;Humidity - "</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-72"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">h</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-73"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">" percent&lt;/p&gt;"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-74"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">"&lt;p&gt;&lt;em&gt;Page refreshes every 30 seconds.&lt;/em&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-75"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">break</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-76"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-77"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">c</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'\n'</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-78"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// you're starting a new line</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-79"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">currentLineIsBlank</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k">true</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-80"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-81"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">else</span><span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">c</span><span class="crayon-h"> </span><span class="crayon-o">!=</span><span class="crayon-h"> </span><span class="crayon-s">'\r'</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-82"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// you've gotten a character on the current line</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-83"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">currentLineIsBlank</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k">false</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-84"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-85"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-86"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-87"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// give the web browser time to receive the data</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-88"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">delay</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-89"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// close the connection:</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-90"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">stop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-91"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">Serial</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"client disonnected"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-55be5c479fe01915875715-92"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-55be5c479fe01915875715-93"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0136 seconds] -->
+<p>It is a modification of the IDE’s&nbsp;<em>webserver&nbsp;</em>example
+ sketch that we used previously – with a few modifications. First, the 
+webpage will automatically refresh every 30 seconds – this parameter is 
+set in the line:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fe08827223888" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">client.println("Refresh: 30");  // refresh the page automatically every 30 sec</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fe08827223888-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fe08827223888-1"><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-s">"Refresh: 30"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c">// refresh the page automatically every 30 sec</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>… and the custom HTML for our web page starts below the line:</p><!-- Crayon Syntax Highlighter v2.7.1 -->
+
+		<div id="crayon-55be5c479fe0c626011937" class="crayon-syntax crayon-theme-arduino-ide crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;" wrap="soft">// from here we can enter our own HTML code to create the web page</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-55be5c479fe0c626011937-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-55be5c479fe0c626011937-1"><span class="crayon-c">// from here we can enter our own HTML code to create the web page</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>You can then simply insert the required HTML inside&nbsp;<em>client.print()</em> functions to create the layout you need.</p>
+<p>Finally – here’s an example screen shot of the example sketch at work:</p>
+<p style="text-align: center;"><img class="aligncenter size-full wp-image-14441" alt="arduino ethernet freetronics etherten dht22 humid cellular" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/arduino-ethernet-freetronics-etherten-dht22-humid-cellular.jpg" height="345" width="500"></p>
+<p>You now have the framework to create your own web pages that can display various data processed with your Arduino.</p>
+<p><em><strong>Remote control your Arduino from afar</strong></em></p>
+</div>
+</div>
+</div>
+<p>We have a <a href="http://tronixstuff.com/2012/06/12/interact-with-arduino-over-the-internet-with-teleduino/" target="_blank">separate tutorial</a> on this topic, that uses the&nbsp;<em>teleduino&nbsp;</em>system.</p>
+<p><strong><em>Conclusion</em></strong></p>
+<p>So there you have it, another useful way to have your Arduino 
+interact with the outside world.&nbsp;Stay tuned for upcoming Arduino 
+tutorials by subscribing to the blog, RSS feed (top-right),&nbsp;<a href="http://twitter.com/tronixstuff" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://twitter.com/tronixstuff', 'twitter']);" target="_blank">twitter</a>&nbsp;or joining our&nbsp;<a href="http://groups.google.com/group/tronixstuff" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://groups.google.com/group/tronixstuff', 'Google Group']);">Google Group</a>.&nbsp;And
+ if you enjoyed the tutorial, or want to introduce someone else to the 
+interesting world of Arduino – check out my book (now in a third 
+printing!) “<a href="http://nostarch.com/arduino" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'http://nostarch.com/arduino', 'Arduino Workshop']);" target="_blank">Arduino Workshop</a>” from No Starch Press.</p>
+<p style="text-align: center;"><img class="aligncenter" alt="tronixstuff" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/tronixstuff_article_divider.jpg" height="93" width="400"></p>
+<div id="ts-fab-below" class="ts-fab-wrapper"><span class="screen-reader-text">The following two tabs change content below.</span><ul class="ts-fab-list"><li class="ts-fab-bio-link active"><a href="#ts-fab-bio-below">Bio</a></li><li class="ts-fab-latest-posts-link"><a href="#ts-fab-latest-posts-below">Latest Posts</a></li></ul><div class="ts-fab-tabs">
+	<div style="display: block;" class="ts-fab-tab" id="ts-fab-bio-below">
+		<div class="ts-fab-avatar"><img id="grav-4034d50f0d544b2708a4d93dba1dc53d-0" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/4034d50f0d544b2708a4d93dba1dc53d.jpeg" srcset="http://1.gravatar.com/avatar/4034d50f0d544b2708a4d93dba1dc53d?s=160&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-80 photo grav-hashed grav-hijack" height="80" width="80"><div class="ts-fab-social-links"></div>
+		</div>
+		
+		<div class="ts-fab-text">
+			<div class="ts-fab-header"><h4>John Boxall</h4></div><!-- /.ts-fab-header -->
+			<div class="ts-fab-content">Founder, owner and managing editor of tronixstuff.com.</div>
+		</div>
+	</div>
+	<div style="display: none;" class="ts-fab-tab" id="ts-fab-latest-posts-below">
+		<div class="ts-fab-avatar"><img id="grav-4034d50f0d544b2708a4d93dba1dc53d-1" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/4034d50f0d544b2708a4d93dba1dc53d.jpeg" srcset="http://1.gravatar.com/avatar/4034d50f0d544b2708a4d93dba1dc53d?s=160&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-80 photo grav-hashed grav-hijack" height="80" width="80"><div class="ts-fab-social-links"></div>
+		</div>
+		<div class="ts-fab-text">
+			<div class="ts-fab-header">
+				<h4>Latest posts by John Boxall <span class="latest-see-all">(<a href="http://tronixstuff.com/author/johnboxall/" rel="nofollow">see all</a>)</span></h4>
+			</div>
+			<ul class="ts-fab-latest">
+				<li>
+					<a href="http://tronixstuff.com/2015/05/23/review-nextion-tft-human-machine-interface/">Review – Nextion TFT Human Machine Interface</a><span> - May 23, 2015</span> 
+				</li>
+				<li>
+					<a href="http://tronixstuff.com/2015/04/23/editorial-arduino-versus-arduino/">Editorial – Arduino versus Arduino</a><span> - April 23, 2015</span> 
+				</li>
+				<li>
+					<a href="http://tronixstuff.com/2015/04/02/kit-review-jye-tech-dso138-digital-storage-oscilloscope/">Kit Review – JYE Tech DSO138 Digital Storage Oscilloscope</a><span> - April 2, 2015</span> 
+				</li>
+		</ul></div>
+	</div>
+		</div>
+	</div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Please share with others:</h3><div class="sd-content"><ul><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-14344" class="share-google-plus-1 sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><span></span><span class="sharing-screen-reader-text">Click to share on Google+ (Opens in new window)</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-14344" class="share-twitter sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span><span class="share-count">6</span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)<span class="share-count">6</span></span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-14344" class="share-facebook sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=facebook&amp;nb=1" target="_blank" title="Share on Facebook"><span><span class="share-count">27</span></span><span class="sharing-screen-reader-text">Share on Facebook (Opens in new window)<span class="share-count">27</span></span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-14344" class="share-linkedin sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span><span class="share-count">1</span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)<span class="share-count">1</span></span></a></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-14344" class="share-pinterest sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=pinterest&amp;nb=1" target="_blank" title="Click to share on Pinterest"><span><span class="share-count">1</span></span><span class="sharing-screen-reader-text">Click to share on Pinterest (Opens in new window)<span class="share-count">1</span></span></a></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=email&amp;nb=1" target="_blank" title="Click to email this to a friend"><span></span><span class="sharing-screen-reader-text">Click to email this to a friend (Opens in new window)</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=reddit&amp;nb=1" target="_blank" title="Click to share on Reddit"><span></span><span class="sharing-screen-reader-text">Click to share on Reddit (Opens in new window)</span></a></li><li class="share-tumblr"><a rel="nofollow" data-shared="" class="share-tumblr sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=tumblr&amp;nb=1" target="_blank" title="Click to share on Tumblr"><span></span><span class="sharing-screen-reader-text">Click to share on Tumblr (Opens in new window)</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?share=pocket&amp;nb=1" target="_blank" title="Click to share on Pocket"><span></span><span class="sharing-screen-reader-text">Click to share on Pocket (Opens in new window)</span></a></li><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon no-text" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#print" target="_blank" title="Click to print"><span></span><span class="sharing-screen-reader-text">Click to print (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-55707253-14344-55be5c47b0e75" data-src="//widgets.wp.com/likes/#blog_id=55707253&amp;post_id=14344&amp;origin=tronixstuff.com&amp;obj_id=55707253-14344-55be5c47b0e75" data-name="like-post-frame-55707253-14344-55be5c47b0e75"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-55707253-14344-55be5c47b0e75" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/a.htm" frameborder="0" height="55px" width="100%"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>					</div>
+				
+				</div><!--/post-->
+				
+               	
+                <div class="navigation">
+    				<div class="alignleft"><a href="http://tronixstuff.com/2013/12/05/kit-review-jaycar-short-circuits-3-digit-counter/" rel="prev"><span class="meta-nav">←</span> Kit Review – Jaycar “Short Circuits” 3 Digit Counter</a></div>
+    				<div class="alignright"><a href="http://tronixstuff.com/2013/12/09/tutorial-lm3915-logarithmic-dotbar-display-driver-ic/" rel="next">Tutorial – LM3915 Logarithmic Dot/Bar Display Driver IC <span class="meta-nav">→</span></a></div>
+    	<br class="fix">
+				</div>
+
+				<div id="comment">
+					
+<!-- You can start editing here. -->
+
+<div id="comments">
+
+
+
+    <h3>12 Responses to “Arduino Tutorials – Chapter 16 – Ethernet”</h3>
+
+	<ol class="commentlist">
+			<li class="comment even thread-even depth-1 parent" id="comment-30765">
+				<div id="div-comment-30765" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-156c2088880367b470c85ce3c7abdf2e-0" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/156c2088880367b470c85ce3c7abdf2e.jpeg" srcset="http://1.gravatar.com/avatar/156c2088880367b470c85ce3c7abdf2e?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">Artur</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-30765">
+			December 7, 2013 at 12:11 am</a>		</div>
+
+		<p>HI John,</p>
+<p>I sent you hangout about it.</p>
+<p>Did you tried to run this example and the twitter code? to me is not working, could you help me with that?</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=30765#respond" onclick='return addComment.moveForm( "div-comment-30765", "30765", "respond", "14344" )' aria-label="Reply to Artur">Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-johnboxall bypostauthor odd alt depth-2" id="comment-30799">
+				<div id="div-comment-30799" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-4034d50f0d544b2708a4d93dba1dc53d-2" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/4034d50f0d544b2708a4d93dba1dc53d_002.jpeg" srcset="http://1.gravatar.com/avatar/4034d50f0d544b2708a4d93dba1dc53d?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">John Boxall</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-30799">
+			December 7, 2013 at 9:12 am</a>		</div>
+
+		<p>What exactly is happening or not happening? Any error messages?</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=30799#respond" onclick='return addComment.moveForm( "div-comment-30799", "30799", "respond", "14344" )' aria-label="Reply to John Boxall">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-31074">
+				<div id="div-comment-31074" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-caf031d5cb2a7e64687bc76131e182c6-0" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/caf031d5cb2a7e64687bc76131e182c6.png" srcset="http://0.gravatar.com/avatar/caf031d5cb2a7e64687bc76131e182c6?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">Follow us</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-31074">
+			December 12, 2013 at 4:11 pm</a>		</div>
+
+		<p>Hello my pal! I need to claim that this particular blog post is 
+actually astounding, wonderful prepared and come using about many 
+sizeable infos. I would like to discover much more articles similar to 
+this .</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=31074#respond" onclick='return addComment.moveForm( "div-comment-31074", "31074", "respond", "14344" )' aria-label="Reply to Follow us">Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-johnboxall bypostauthor odd alt depth-2" id="comment-31078">
+				<div id="div-comment-31078" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-4034d50f0d544b2708a4d93dba1dc53d-3" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/4034d50f0d544b2708a4d93dba1dc53d_002.jpeg" srcset="http://1.gravatar.com/avatar/4034d50f0d544b2708a4d93dba1dc53d?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">John Boxall</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-31078">
+			December 12, 2013 at 5:01 pm</a>		</div>
+
+		<p>Damn straight! Stay tuned to tronixstuff.com to find out more <img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/simple-smile.png" alt=":)" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=31078#respond" onclick='return addComment.moveForm( "div-comment-31078", "31078", "respond", "14344" )' aria-label="Reply to John Boxall">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-31108">
+				<div id="div-comment-31108" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-633d97927361aab04dc78f6f32c46bd1-0" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/633d97927361aab04dc78f6f32c46bd1.png" srcset="http://0.gravatar.com/avatar/633d97927361aab04dc78f6f32c46bd1?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">Fred</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-31108">
+			December 13, 2013 at 2:15 am</a>		</div>
+
+		<p>Hello,<br>
+On a DUE board, as i try this example, the loop “for” using the “int 
+sensorReading = analogRead(analogChannel)” sequence return me the same 
+value as the A0 input and this value is the same for all channel even if
+ the over input are connect to ground … my web screen is like above.<br>
+If i test it one input by one input alone, it will work correctly.<br>
+Any idea ?</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=31108#respond" onclick='return addComment.moveForm( "div-comment-31108", "31108", "respond", "14344" )' aria-label="Reply to Fred">Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-johnboxall bypostauthor odd alt depth-2 parent" id="comment-31132">
+				<div id="div-comment-31132" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-4034d50f0d544b2708a4d93dba1dc53d-4" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/4034d50f0d544b2708a4d93dba1dc53d_002.jpeg" srcset="http://1.gravatar.com/avatar/4034d50f0d544b2708a4d93dba1dc53d?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">John Boxall</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-31132">
+			December 13, 2013 at 7:11 am</a>		</div>
+
+		<p>That is odd. I don’t have a Due to test this at the moment, perhaps you can ask in the Arduino forum at – <a href="http://forum.arduino.cc/index.php?board=87.0" onclick="_gaq.push(['_trackEvent', 'outbound-comment', 'http://forum.arduino.cc/index.php?board=87.0', 'http://forum.arduino.cc/index.php?board=87.0']);" rel="nofollow">http://forum.arduino.cc/index.php?board=87.0</a></p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=31132#respond" onclick='return addComment.moveForm( "div-comment-31132", "31132", "respond", "14344" )' aria-label="Reply to John Boxall">Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment even depth-3" id="comment-31142">
+				<div id="div-comment-31142" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-633d97927361aab04dc78f6f32c46bd1-1" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/633d97927361aab04dc78f6f32c46bd1.png" srcset="http://0.gravatar.com/avatar/633d97927361aab04dc78f6f32c46bd1?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">Fred</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-31142">
+			December 13, 2013 at 8:15 am</a>		</div>
+
+		<p>Hello,<br>
+I found the solution on the Arduino forum : The 1.5.5 release have a bug
+ on “analogRead” or DAC comverter… so i downgrade to 1.5.4 and it is OK.<br>
+Thanks.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-184002">
+				<div id="div-comment-184002" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-dd803f6bf80d7d59bf3436cb77a8bf61-0" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/dd803f6bf80d7d59bf3436cb77a8bf61.png" srcset="http://1.gravatar.com/avatar/dd803f6bf80d7d59bf3436cb77a8bf61?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">Stephen Holt</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-184002">
+			February 7, 2015 at 7:24 pm</a>		</div>
+
+		<p>Hi John,</p>
+<p>Can you do a tutorial on this</p>
+<p><a href="http://arduino.cc/en/Main/ArduinoWiFiShield" onclick="_gaq.push(['_trackEvent', 'outbound-comment', 'http://arduino.cc/en/Main/ArduinoWiFiShield', 'http://arduino.cc/en/Main/ArduinoWiFiShield']);" rel="nofollow">http://arduino.cc/en/Main/ArduinoWiFiShield</a></p>
+<p>Or does anything you have done so far cover it ?</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=184002#respond" onclick='return addComment.moveForm( "div-comment-184002", "184002", "respond", "14344" )' aria-label="Reply to Stephen Holt">Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-johnboxall bypostauthor even depth-2" id="comment-187562">
+				<div id="div-comment-187562" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-4034d50f0d544b2708a4d93dba1dc53d-5" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/4034d50f0d544b2708a4d93dba1dc53d_002.jpeg" srcset="http://1.gravatar.com/avatar/4034d50f0d544b2708a4d93dba1dc53d?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">John Boxall</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-187562">
+			March 14, 2015 at 4:06 pm</a>		</div>
+
+		<p>No we haven’t looked at the official WiFi shield, from the start it
+ was a bit of a dud. There are many lower-cost alternatives such as the 
+ESP8266 now.</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=187562#respond" onclick='return addComment.moveForm( "div-comment-187562", "187562", "respond", "14344" )' aria-label="Reply to John Boxall">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-191540">
+				<div id="div-comment-191540" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-2a53515b093630480f2d6c0615534009-0" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/2a53515b093630480f2d6c0615534009.png" srcset="http://2.gravatar.com/avatar/2a53515b093630480f2d6c0615534009?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">pavankumar</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-191540">
+			April 26, 2015 at 6:42 pm</a>		</div>
+
+		<p>your tutorials  have been excellent and..  and no words for me to express!!!<br>
+thank you sir!</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=191540#respond" onclick='return addComment.moveForm( "div-comment-191540", "191540", "respond", "14344" )' aria-label="Reply to pavankumar">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-197049">
+				<div id="div-comment-197049" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-8ef4192fc4672ef174131809dcf67a4a-0" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/8ef4192fc4672ef174131809dcf67a4a.png" srcset="http://2.gravatar.com/avatar/8ef4192fc4672ef174131809dcf67a4a?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">JohnTech</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-197049">
+			June 12, 2015 at 10:55 am</a>		</div>
+
+		<p>I am using the Ethernet board with a Leonardo and everything works 
+great UNTIL I close the Serial window to move the boards to a new 
+location. Once powered back up the server stops working until I plug the
+ USB cable back in, start the IDE so I can open the Serial window again.
+ Then it starts working again. Is there any way to make this work 
+without the Serial window??</p>
+<p>Thank you<br>
+John</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=197049#respond" onclick='return addComment.moveForm( "div-comment-197049", "197049", "respond", "14344" )' aria-label="Reply to JohnTech">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-197066">
+				<div id="div-comment-197066" class="comment-body">
+				<div class="comment-author vcard">
+			<img id="grav-8ef4192fc4672ef174131809dcf67a4a-1" alt="" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/8ef4192fc4672ef174131809dcf67a4a.png" srcset="http://2.gravatar.com/avatar/8ef4192fc4672ef174131809dcf67a4a?s=96&amp;d=monsterid&amp;r=g 2x" class="avatar avatar-48 photo grav-hashed grav-hijack" height="48" width="48">			<cite class="fn">JohnTech</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#comment-197066">
+			June 13, 2015 at 10:17 am</a>		</div>
+
+		<p>I found the problem! If you don’t have the Serial Monitor window 
+open when using the Leonardo with the following code, it will cause the 
+sketch to hang.</p>
+<p>Serial.begin(9600);<br>
+   // while the serial stream is not open, do nothing:<br>
+   while (!Serial) ;</p>
+<p>Once you open the Serial Monitor the sketch takes off and runs!!</p>
+
+		<div class="reply"><a class="comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/?replytocom=197066#respond" onclick='return addComment.moveForm( "div-comment-197066", "197066", "respond", "14344" )' aria-label="Reply to JohnTech">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+	</ol>  
+  
+    <h3 id="pings">Trackbacks/Pingbacks</h3>
+    <ol class="commentlist">
+        </ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+		<div class="fix"></div>
+	</div>
+	<br>
+    
+ 
+
+</div> <!-- end #comments_wrap -->
+
+
+<div id="respond">
+
+<h3>Leave a Reply</h3>
+<div class="cancel-comment-reply">
+	<p><small><a rel="nofollow" id="cancel-comment-reply-link" href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/#respond" style="display:none;">Click here to cancel reply.</a></small></p>
+</div>
+
+<form action="//tronixstuff.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><input vk_1f176="subscribed" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-position: right center;" name="author" id="author" size="22" tabindex="1" type="text">
+<label for="author"><small>Name (required)</small></label></p>
+
+<p><input vk_1f176="subscribed" name="email" id="email" size="22" tabindex="2" type="text">
+<label for="email"><small>Mail (will not be published) (required)</small></label></p>
+
+<p><input vk_1f176="subscribed" name="url" id="url" size="22" tabindex="3" type="text">
+<label for="url"><small>Website</small></label></p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code class=&quot;&quot; title=&quot;&quot; data-url=&quot;&quot;&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; &lt;pre class=&quot;&quot; title=&quot;&quot; data-url=&quot;&quot;&gt; &lt;span class=&quot;&quot; title=&quot;&quot; data-url=&quot;&quot;&gt; </small></p>-->
+
+<p><textarea name="comment" id="comment" rows="10" tabindex="4" style="width:85%"></textarea></p>
+
+<p><input name="submit" id="submit" tabindex="5" value="Submit Comment" type="submit">
+<input name="comment_post_ID" value="14344" type="hidden">
+</p>
+<input name="comment_post_ID" value="14344" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="ea69cc01ef" type="hidden"></p><p class="comment-subscription-form"><input name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"></p>
+<input id="ak_js" name="ak_js" value="1438541164029" type="hidden"></form>
+
+
+<div class="fix"></div>
+</div> <!-- end #respond -->
+
+				</div>
+
+					
+								
+
+		</div><!--/col1-->
+
+<div class="col2">
+	
+	<div id="text-24" class="block widget widget_text"><h3>Visit tronixlabs.com</h3>			<div class="textwidget"> <a href="http://www.tronixlabs.com/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.tronixlabs.com', 'Helping you make it with Australia\'s best value for supported hobbyist electronics from adafruit, DFRobot, Freetronics, Seeed Studio and more!']);">Helping
+ you make it with Australia's best value for supported hobbyist 
+electronics from adafruit, DFRobot, Freetronics, Seeed Studio and more!</a>
+</div>
+		</div><div id="blog_subscription-3" class="block widget jetpack_subscription_widget"><h3>Subscribe via email</h3>
+			<form action="#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-3">
+				<div id="subscribe-text"><p>Receive notifications of new posts by email.</p>
+</div>					<p id="subscribe-email">
+						<label style="clip: rect(1px, 1px, 1px, 1px); position: absolute; height: 1px; width: 1px; overflow: hidden;" id="jetpack-subscribe-label" for="subscribe-field">
+							Email Address						</label>
+						<input name="email" required="required" class="required" id="subscribe-field-blog_subscription-3" placeholder="Email Address" type="email">
+					</p>
+
+					<p id="subscribe-submit">
+						<input name="action" value="subscribe" type="hidden">
+						<input name="source" value="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/" type="hidden">
+						<input name="sub-type" value="widget" type="hidden">
+						<input name="redirect_fragment" value="blog_subscription-3" type="hidden">
+												<input value="Subscribe" name="jetpack_subscriptions_widget" type="submit">
+					</p>
+							</form>
+
+			<script>
+			/*
+			Custom functionality for safari and IE
+			 */
+			(function( d ) {
+				// Creates placeholders for IE
+				if ( ( 'placeholder' in d.createElement( 'input' ) ) ) {
+					var label = d.getElementById( 'jetpack-subscribe-label' );
+						label.style.clip 	 = 'rect(1px, 1px, 1px, 1px)';
+						label.style.position = 'absolute';
+						label.style.height   = '1px';
+						label.style.width    = '1px';
+						label.style.overflow = 'hidden';
+				}
+
+				// Make sure the email value is filled in before allowing submit
+				var form = d.getElementById('subscribe-blog-blog_subscription-3'), 
+					input = d.getElementById('subscribe-field-blog_subscription-3'),
+					handler = function( event ) {
+						if ( '' === input.value ) {
+							input.focus();
+							
+							if ( event.preventDefault ){
+								event.preventDefault();
+							}
+							
+							return false; 
+						}
+					}; 
+			
+				if ( window.addEventListener ) {
+					form.addEventListener( 'submit', handler, false );
+				} else {
+					form.attachEvent( 'onsubmit', handler );
+				}
+			})( document );
+			</script>
+				
+</div><div id="social-widget-2" class="block widget Social_Widget"><div class="socialmedia-buttons smw_left"><a href="https://twitter.com/tronixstuff" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/twitter.png" alt="tronixstuff on  Twitter" title="tronixstuff on  Twitter" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a><a href="http://www.youtube.com/user/tronixstuff" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/youtube.png" alt="tronixstuff on  YouTube" title="tronixstuff on  YouTube" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a><a href="http://www.vimeo.com/tronixstuff" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/vimeo.png" alt="tronixstuff on  Vimeo" title="tronixstuff on  Vimeo" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a><a href="http://www.flickr.com/photos/tronixstuff" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/flickr.png" alt="tronixstuff on  Flickr" title="tronixstuff on  Flickr" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a><a href="http://google.com/+JohnBoxall" rel="publisher" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/googleplus.png" alt="tronixstuff on  Google+" title="tronixstuff on  Google+" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a><a href="http://tronixstuff.com/" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/wordpress.png" alt="tronixstuff on  Wordpress" title="tronixstuff on  Wordpress" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a><a href="http://www.pinterest.com/tronixstuff" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/pinterest.png" alt="tronixstuff on  Pinterest" title="tronixstuff on  Pinterest" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a><a href="http://tronixstuff.tumblr.com/" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/tumblr.png" alt="tronixstuff on  Tumblr" title="tronixstuff on  Tumblr" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a><a href="mailto:john@tronixstuff.com" target="_blank"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/email.png" alt="tronixstuff on  E-mail" title="tronixstuff on  E-mail" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" height="48" width="48"></a></div></div><div class="adspace-widget widget">		
+		<script type="text/javascript"><!--
+google_ad_client = "ca-pub-7811816796650654";
+/* tronixstuff.com RHS top ad unit */
+google_ad_slot = "1677532869";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/show_ads.js">
+</script>		
+		</div><div id="search-3" class="block widget widget_search"><h3>Search the site</h3><form role="search" method="get" id="searchform" class="searchform" action="//tronixstuff.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input vk_1f176="subscribed" name="s" id="s" type="text">
+					<input id="searchsubmit" value="Search" type="submit">
+				</div>
+			</form></div><div id="text-14" class="block widget widget_text"><h3>tronixstuff forum</h3>			<div class="textwidget">  <a href="http://www.tronixforum.com/?forum=376334" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.tronixforum.com/?forum=376334', 'Why not join our moderated discussion forum? ']);">Why not join our moderated discussion forum? </a>
+</div>
+		</div><div class="adspace-widget widget">		
+		<script type="text/javascript"><!--
+google_ad_client = "ca-pub-7811816796650654";
+/* tronixstuff.com RHS 2nd top */
+google_ad_slot = "3154266060";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/show_ads.js">
+</script>		
+		</div><div id="text-22" class="block widget widget_text"><h3>Arduino Tutorials</h3>			<div class="textwidget"><a href="http://tronixstuff.com/tutorials">Click for Detailed Chapter Index</a>
+<br><br>Chapters 
+<a href="http://tronixstuff.com/2010/04/04/getting-started-with-arduino-chapter-zero/">0</a>
+<a href="http://tronixstuff.com/2010/04/10/getting-started-with-arduino-chapter-one/"> 1</a>
+<a href="http://tronixstuff.com/2010/04/15/getting-started-with-arduino-chapter-two/"> 2</a>
+<a href="http://tronixstuff.com/2010/04/20/getting-started-with-arduino-chapter-three/"> 3</a>
+<a href="http://tronixstuff.com/2010/04/30/getting-started-with-arduino-%E2%80%93-chapter-four/"> 4</a><br>Chapters 
+<a href="http://tronixstuff.com/2010/05/06/getting-started-with-arduino-chapter-five//">5</a>
+<a href="http://tronixstuff.com/2010/05/14/getting-started-with-arduino-%e2%80%93-chapter-six/"> 6</a>
+<a href="http://tronixstuff.com/2010/05/16/getting-started-with-arduino-%e2%80%93-chapter%c2%a0six%c2%a0addendum/"> 6a</a>
+<a href="http://tronixstuff.com/2010/05/20/getting-started-with-arduino-%e2%80%93-chapter-seven/"> 7</a>
+<a href="http://tronixstuff.com/2010/05/26/getting-started-with-arduino-%e2%80%93-chapter-eight/"> 8</a><br>Chapters 
+<a href="http://tronixstuff.com/2010/06/06/getting-started-with-arduino-%e2%80%93-chapter-nine/"> 9</a>
+<a href="http://tronixstuff.com/2010/06/14/getting-started-with-arduino-chapter-ten/"> 10</a>
+<a href="http://tronixstuff.com/2010/06/26/getting-started-with-arduino-%e2%80%93-chapter-eleven/"> 11</a><a href="http://tronixstuff.com/2010/07/07/getting-started-with-arduino-%e2%80%93-chapter-twelve/"> 12</a>
+<a href="http://tronixstuff.com/2010/07/24/getting-started-with-arduino-%e2%80%93-chapter%c2%a0thirteen/"> 13</a><br>
+<a href="http://tronixstuff.com/2010/08/06/moving-forward-with-arduino-%e2%80%93-chapter-14-xbee-introduction/">Ch. 14 - XBee</a>
+<br>
+<a href="http://tronixstuff.com/2013/11/19/arduino-tutorials-chapter-15-rfid/">Ch. 15 - RFID - RDM-630</a>
+<br>
+<a href="http://tronixstuff.com/2013/02/26/arduino-tutorial-15a-rfid-with-innovations-id-20/">Ch. 15a - RFID - ID-20</a>
+<br>
+<a href="http://tronixstuff.com/2013/12/06/arduino-tutorials-chapter-16-ethernet/">Ch. 16 - Ethernet</a>
+<br>
+<a href="http://tronixstuff.com/2010/09/17/moving-forward-with-arduino-%e2%80%93-chapter-17-%e2%80%93-gps/">Ch. 17 - GPS - EM406A</a>
+<br>
+Ch. 18 - RGB matrix - awaiting update
+<br>
+<a href="http://tronixstuff.com/2014/01/15/tutorial-arduino-mediatek-3329-gps/">Ch. 19 - GPS - MediaTek 3329</a>
+<br>
+<a href="http://tronixstuff.com/2010/10/20/tutorial-arduino-and-the-i2c-bus/">Ch. 20 - I2C bus part I</a>
+<br>
+<a href="http://tronixstuff.com/2010/10/29/tutorial-arduino-and-the-i2c-bus-part-two/">Ch. 21 - I2C  bus part II</a>
+<br>
+<a href="http://tronixstuff.com/2013/12/12/arduino-tutorials-chapter-22-aref-pin/">Ch. 22 - AREF pin</a>
+<br>
+<a href="http://tronixstuff.com/2010/12/29/tutorial-arduino-and-the-ds-touch-screen/">Ch. 23 - Touch screen</a>
+<br>
+<a href="http://tronixstuff.com/2011/01/08/tutorial-arduino-and-monochrome-lcds/">Ch. 24 - Monochrome LCD</a>
+<br>
+<a href="http://tronixstuff.com/2011/01/11/tutorial-using-analog-input-for-multiple-buttons/">Ch. 25 - Analog buttons</a>
+<br>
+<a href="http://tronixstuff.com/2011/01/19/tutorial-arduino-and-gsm-cellular-part-one/">Ch. 26 - GSM - SM5100 Uno</a>
+<br>
+<a href="http://tronixstuff.com/2014/01/18/tutorial-arduino-mega-sm5100b-gsm-cellular/">Ch. 27 - GSM - SM5100 Mega</a>
+<br>
+<a href="http://tronixstuff.com/2014/02/03/tutorial-arduino-color-lcd/">Ch. 28 - Colour LCD</a>
+<br>
+<a href="http://tronixstuff.com/">Ch. 29 - TFT LCD - coming soon...</a>
+<br>
+<a href="http://tronixstuff.com/2013/12/04/arduino-tutorials-chapter-30-twitter/">Ch. 30 - Arduino + twitter</a>
+<br>
+<a href="http://tronixstuff.com/2011/03/16/tutorial-your-arduinos-inbuilt-eeprom/">Ch. 31 - Inbuilt EEPROM</a>
+<br>
+<a href="http://tronixstuff.com/2011/03/30/tutorial-arduino-and-infra-red-control/">Ch. 32 - Infra-red control</a>
+<br>
+<a href="http://tronixstuff.com/2011/04/24/tutorial-control-ac-outlets-via-sms/">Ch. 33 - Control AC via SMS</a>
+<br>
+<a href="http://tronixstuff.com/2011/05/13/tutorial-arduino-and-the-spi-bus/">Ch. 34 - SPI bus part I </a>
+<br>
+<a href="http://tronixstuff.com/2011/05/30/tutorial-video-output-from-your-arduino/">Ch. 35 - Video-out</a>
+<br>
+<a href="http://tronixstuff.com/2011/06/15/tutorial-arduino-and-the-spi-bus-part-ii/">Ch. 36 - SPI bus part II </a>
+<br>
+<a href="http://tronixstuff.com/2011/06/22/tutorial-arduino-timing-methods-with-millis/">Ch. 37 - Timing with millis() </a>
+<br>
+<a href="http://tronixstuff.com/2011/07/08/tutorial-arduino-and-a-thermal-printer//">Ch. 38 - Thermal Printer </a>
+<br>
+<a href="http://tronixstuff.com/2011/07/21/tutorial-arduino-and-the-nxp-saa1064-4-digit-led-display-driver/">Ch. 39 - NXP SAA1064</a>
+<br>
+<a href="http://tronixstuff.com/2011/08/15/tutorial-arduino-and-push-wheel-switches/">Ch. 40 - Push wheel switches</a>
+<br>
+<a href="http://tronixstuff.com/2011/08/27/tutorial-arduino-and-multiple-push-wheel-switches/">Ch. 40a - Wheel switches II</a>
+<br>
+<a href="http://tronixstuff.com/2011/08/26/tutorial-maximising-your-arduinos-io-ports/">Ch. 41 - More digital I/O</a>
+<br>
+<a href="http://tronixstuff.com/2013/12/16/arduino-tutorials-chapter-42-numeric-keypads/">Ch. 42 - Numeric keypads</a>
+<br>
+<a href="http://tronixstuff.com/2011/10/22/tutorial-arduino-port-manipulation/">Ch. 43 - Port Manipulation - Uno</a>
+<br>
+<a href="http://tronixstuff.com/2011/11/23/using-an-attiny-as-an-arduino/">Ch. 44 - ATtiny+Arduino</a>
+<br>
+<a href="http://tronixstuff.com/2011/11/28/tutorial-parallax-ping-ultrasonic-sensor/">Ch. 45 - Ultrasonic Sensor</a>
+<br>
+<a href="http://tronixstuff.com/2012/02/29/tutorial-analog-input-for-multiple-buttons-part-two/">Ch. 46 - Analog + buttons II</a>
+<br>
+<a href="http://tronixstuff.com/2012/09/14/internet-controlled-relays-with-teleduino-and-freetronics-relay8/">Ch. 47 - Internet-controlled relays</a>
+<br>
+<a href="http://tronixstuff.com/2013/01/31/tutorial-arduino-and-the-msgeq7-spectrum-analyzer/">Ch. 48 - MSGEQ7 Spectrum Analyzer</a>
+<br>
+<a href="http://tronixstuff.com/2013/02/08/first-look-arduino-due/">First look - Arduino Due</a>
+<br>
+<a href="http://tronixstuff.com/2013/03/11/arduino-and-ktm-s1201-lcd-modules/">Ch. 49 - KTM-S1201 LCD modules</a>
+<br>
+<a href="http://tronixstuff.com/2013/04/26/tutorial-arduino-and-ili9325-colour-tft-lcd-modules/">Ch. 50 - ILI9325 colour TFT LCD modules</a>
+<br>
+<a href="http://tronixstuff.com/2013/05/12/tutorial-arduino-and-mc14489-led-display-driver/">Ch. 51 - MC14489 LED display driver  IC</a>
+<br>
+<a href="http://tronixstuff.com/2013/06/17/tutorial-arduino-and-pcf8591-adc-dac-ic/">Ch. 52 - NXP PCF8591 ADC/DAC IC</a>
+<br>
+<a href="http://tronixstuff.com/2013/07/02/tutorial-arduino-and-the-ti-ads1110-16-bit-adc/">Ch. 53 - TI ADS1110 16-bit ADC IC</a>
+<br>
+<a href="http://tronixstuff.com/2013/08/13/tutorial-arduino-and-pcf8563-real-time-clock-ic/">Ch. 54 - NXP PCF8563 RTC</a>
+<br>
+<a href="http://tronixstuff.com/2014/01/08/tutorial-arduino-and-sim900-gsm-modules/">Ch. 55 - GSM - SIM900</a>
+<br>
+<a href="http://tronixstuff.com/2013/10/11/tutorial-arduino-max7219-led-display-driver-ic/">Ch. 56 - MAX7219 LED driver IC</a>
+<br>
+<a href="http://tronixstuff.com/2013/10/21/tutorial-arduino-tlc5940-led-driver-ic/">Ch. 57 - TI TLC5940 LED driver IC</a>
+<br>
+<a href="http://tronixstuff.com/2014/09/24/tutorial-serial-pcf8574-backpacks-hd44780-compatible-lcd-modules-arduino/">Ch. 58 - Serial PCF8574 LCD Backpacks</a>
+<br>
+<a href="http://tronixstuff.com/2014/11/25/tutorial-l298n-dual-motor-controller-modules-and-arduino//">Ch. 59 - L298 Motor Control</a>
+<br>
+<a href="http://tronixstuff.com/2014/12/01/tutorial-using-ds1307-and-ds3231-real-time-clock-modules-with-arduino/">Ch. 60 - DS1307 and DS3231 RTC part I</a>
+<br>
+<a href="http://tronixstuff.com/arduino-yun-tutorials/">Arduino Yún tutorials</a>
+<br>
+<a href="http://tronixstuff.com/pcduino/">pcDuino tutorials</a>
+<br>
+</div>
+		</div><div class="adspace-widget widget"><h3>The Arduino Book</h3>		
+			<a href="http://tronixlabs.com/arduino/arduino-workshop-a-hands-on-introduction-with-65-projects-by-john-boxall/"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/arduinoweb.png" alt="Arduino Workshop"></a>
+	
+		</div><div class="adspace-widget widget"><h3>Für unsere deutschen Freunde</h3>		
+			<a href="https://www.dpunkt.de/buecher/4502/arduino-workshops.html"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/Arduino_Workshop_German.jpg" alt=""></a>
+	
+		</div><div class="adspace-widget widget"><h3>Dla naszych polskich przyjaciół ...</h3>		
+			<a href="http://helion.pl/ksiazki/arduino-65-praktycznych-projektow-john-boxall,ardupp.htm"><img src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/Arduino-Workshop-Polish.png" alt=""></a>
+	
+		</div><div id="text-20" class="block widget widget_text"><h3>Australian Electronics!</h3>			<div class="textwidget">Buy and support <a href="http://www.siliconchip.com.au/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.siliconchip.com.au', 'Silicon Chip']);">Silicon Chip</a> - Australia's only Electronics Magazine. </div>
+		</div><div id="text-4" class="block widget widget_text"><h3>Interesting Sites</h3>			<div class="textwidget"><a href="http://www.shieldlist.org/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.shieldlist.org', 'Amazing Arduino Shield Directory']);">Amazing Arduino Shield Directory</a><br>
+<a href="http://www.eevblog.com/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.eevblog.com', 'David L. Jones\' eev blog']);">David L. Jones' eev blog</a><br>
+<a href="http://www.siliconchip.com.au/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.siliconchip.com.au', 'Silicon Chip magazine']);">Silicon Chip magazine</a>
+Always a great read!<br>
+<a href="http://www.talkingelectronics.com/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://www.talkingelectronics.com/', 'Talking Electronics']);">Talking Electronics</a><br>
+<a href="http://dangerousprototypes.com/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://dangerousprototypes.com/', 'Dangerous Prototypes']);">Dangerous Prototypes</a><br>
+<a href="http://theamphour.com/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://theamphour.com/', 'The Amp Hour podcast']);">The Amp Hour podcast</a><br>
+<a href="http://superhouse.tv/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://superhouse.tv', 'Superhouse.tv ']);">Superhouse.tv </a>
+High-tech home renovation
+<br>
+</div>
+		</div><div id="text-23" class="block widget widget_text"><h3>Use of our content…</h3>			<div class="textwidget"><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://creativecommons.org/licenses/by-nc-sa/4.0/', '']);" rel="license"><img alt="Creative Commons License" style="border-width:0" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/88x31.png"></a><br><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">tronixstuff.com</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">John Boxall</span> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" onclick="_gaq.push(['_trackEvent', 'outbound-widget', 'http://creativecommons.org/licenses/by-nc-sa/4.0/', 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License']);" rel="license">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+		</div> 
+	
+	<div class="fix"></div>
+    
+    <div class="subcol fl">
+
+	 
+                   
+    </div><!--/subcol-->
+	
+	<div class="subcol fr">
+	
+	 
+			
+	</div><!--/subcol-->
+		
+<div class="fix"></div>
+	
+</div><!--/col2-->
+
+		<div class="fix"></div>
+
+	</div><!--/columns -->
+	
+	<div id="footer">
+		
+	</div><!--/footer -->
+
+</div><!--/page -->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-4034d50f0d544b2708a4d93dba1dc53d">
+	</div>
+	<div class="grofile-hash-map-156c2088880367b470c85ce3c7abdf2e">
+	</div>
+	<div class="grofile-hash-map-fd81dffddfc712d85311c2d3c038df53">
+	</div>
+	<div class="grofile-hash-map-633d97927361aab04dc78f6f32c46bd1">
+	</div>
+	<div class="grofile-hash-map-dd803f6bf80d7d59bf3436cb77a8bf61">
+	</div>
+	<div class="grofile-hash-map-2a53515b093630480f2d6c0615534009">
+	</div>
+	<div class="grofile-hash-map-8ef4192fc4672ef174131809dcf67a4a">
+	</div>
+	</div>
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/tronixstuff.com\/2013\/12\/06\/arduino-tutorials-chapter-16-ethernet\/":14344};
+		window.WPCOM_jetpack = true;
+				window.WPCOM_site_ID = 55707253;
+			</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+					
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-tumblr' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-pocket' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+		<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/form.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/comment-reply.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/photon.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/jquery_003.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/tronixstuff.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ...","cached":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/scripts.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/wpgroho.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/postmessage.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/jquery_002.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/jquery_004.js"></script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/queuehandler.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/sharing.js"></script>
+		<iframe src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/master.htm" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/e-201531.js" async="" defer="defer"></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.6.1',blog:'55707253',post:'14344',tz:'10',srv:'tronixstuff.com'} ]);
+	_stq.push([ 'clickTrackerInit', '55707253', '14344' ]);
+</script>
+
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l=document.getElementsByTagName("a"),t=document.createElement("textarea");for(i=0;l.length-i;i++){try{a=l[i].getAttribute("href");if(a&&a.indexOf("/cdn-cgi/l/email-protection") > -1  && (a.length > 28)){s='';j=27+ 1 + a.indexOf("/cdn-cgi/l/email-protection");if (a.length > j) {r=parseInt(a.substr(j,2),16);for(j+=2;a.length>j&&a.substr(j,1)!='X';j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}j+=1;s+=a.substr(j,a.length-j);}t.innerHTML=s.replace(/</g,"&lt;").replace(/>/g,"&gt;");l[i].setAttribute("href","mailto:"+t.value);}}catch(e){}}}catch(e){}})();
+/* ]]> */
+</script>
+
+
+
+
+
+<img id="wpstats" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/g.gif"><div id="sharing_email" style="display: none;">
+		<form action="/2013/12/06/arduino-tutorials-chapter-16-ethernet/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" type="email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input vk_1f176="subscribed" name="source_name" id="source_name" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" type="email">
+
+						<input id="jetpack-source_f_name" name="source_f_name" class="input" size="25" autocomplete="off" type="text">
+			<script> document.getElementById('jetpack-source_f_name').value = ''; </script>
+			
+			<img style="float: right; display: none" class="loading" src="%D0%A1%D1%87%D0%B8%D1%82%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%82%D0%B5%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8B%20%D0%B2%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B2%D0%B5%D0%B1_files/loading.gif" alt="loading" height="16" width="16">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a rel="nofollow" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div></body></html>
+<!-- Dynamic page generated in 0.499 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-08-03 04:07:03 -->
+<!-- super cache -->
